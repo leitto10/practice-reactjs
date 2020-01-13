@@ -1,26 +1,39 @@
 import React from 'react';
-import logo from './logo.svg';
+
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+export default class App extends React.Component {
+  render() {
+
+    return (
+      <div className="App">
+      
+        <h1>Score Board</h1>
+        <span className="stats">Players: 1</span>
+        <Players />
+
+    </div>
+    );
+  }
+}
+
+const Players = () => {
+  return(
+    <div className="player">
+      <span className="player-name">
+        Jose
+      </span>
+      <Counter />
     </div>
   );
 }
 
-export default App;
+const Counter = () => {
+  return(
+    <div className="counter">
+      <button className="counter-action decrement"> - </button>
+      <span className="counter-score">35</span>
+      <button className="counter-action decrement"> + </button>
+    </div>
+  );
+}
