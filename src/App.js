@@ -1,20 +1,28 @@
-import React from 'react';
+// Practice React with components
 
-import './App.css';
+import React from 'react';
+import './styles.css';
 
 export default class App extends React.Component {
   render() {
-
     return (
-      <div className="App">
-      
-        <h1>Score Board</h1>
-        <span className="stats">Players: 1</span>
+      <div className="scoreboard">
+        <Header title="Scoreboard" totalPlayer={1}/>
         <Players />
-
     </div>
     );
   }
+}
+
+const Header = (props) => {
+  console.log(props)
+  return(
+    <header>
+      <h1>{props.title}</h1>
+      <span className="stats">Players: {props.totalPlayer}</span>
+
+    </header>
+  );
 }
 
 const Players = () => {
