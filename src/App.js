@@ -8,7 +8,12 @@ export default class App extends React.Component {
     return (
       <div className="scoreboard">
         <Header title="Scoreboard" totalPlayer={1}/>
-        <Players />
+
+        <Players name="Guil" score={50}/>
+        <Players name="Jose" score={30}/>
+        <Players name="Anna" score={40}/>
+        <Players name="Mimi" score={20}/>
+        <Players name="Yoz" score={10}/>
     </div>
     );
   }
@@ -25,22 +30,22 @@ const Header = (props) => {
   );
 }
 
-const Players = () => {
+const Players = (props) => {
   return(
     <div className="player">
       <span className="player-name">
-        Jose
+        {props.name}
       </span>
-      <Counter />
+      <Counter score={props.score}/>
     </div>
   );
 }
 
-const Counter = () => {
+const Counter = (props) => {
   return(
     <div className="counter">
       <button className="counter-action decrement"> - </button>
-      <span className="counter-score">35</span>
+      <span className="counter-score">{props.score}</span>
       <button className="counter-action decrement"> + </button>
     </div>
   );

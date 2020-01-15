@@ -241,3 +241,13 @@ svg {
     font-size: 2em;
     line-height: 2em;
   }
+
+  /* =================================
+  Media Queries
+==================================== */
+@media screen and (max-width: 480px) {
+
+  .scoreboard {
+    width: 100%;
+  }
+}
