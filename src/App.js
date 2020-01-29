@@ -1,30 +1,62 @@
 // Practice React with components
-
-import React from 'react';
+import React, {Component} from 'react';
 import './styles.css';
 
-export default class App extends React.Component {
+import Header from './components/Header';
+import Player from './components/Player';
+import AddPlayerForm from './components/AddPlayerForm';
+
+export default class App extends Component {
   state = {
     players: [
       {
         name: "Guil",
+        score: 0,
         id: 1
       },
       {
         name: "Treasure",
+        score: 0,
         id: 2
       },
       {
         name: "Ashley",
+        score: 0,
         id: 3
       },
       {
         name: "James",
+        score: 0,
         id: 4
       }
     ]
 
   };
+
+  // player id counter
+  prevPlayerId = 4;
+
+   hangleScoreChange = (index, delta) => {
+      this.setState( prevState => ({
+          score: prevState.players[index].score += delta
+      }));
+     console.log('index: ' + index, 'delta: ' + delta)
+  }
+
+  handleAddPlayer = (name) => {
+    this.setState( prevState => {
+      return {
+        players: [
+          ...prevState.players,
+          {
+            name,
+            score: 0,
+            id: this.prevPlayerId += 1
+          }
+        ]
+      }
+    });
+  }
 
   handleRemovePlayer = (id) => {
     this.setState( prevState => {
@@ -37,68 +69,23 @@ export default class App extends React.Component {
   render() {
     return (
       <div className="scoreboard">
-        <Header title="Scoreboard" totalPlayer={this.state.players.length}/>
-        {this.state.players.map( players =>
+        <Header
+        title="Scoreboard"
+        players={this.state.players}/>
+
+        {this.state.players.map( (players, index) =>
           <Player
           name={players.name}
+          score={players.score}
           id={players.id}
           key={players.id.toString()}
+          index={index}
+          changeScore={this.hangleScoreChange}
           removePlayer={this.handleRemovePlayer}
           />
         )}
+        <AddPlayerForm addPlayer={this.handleAddPlayer}/>
     </div>
-    );
-  }
-}
-
-// This is the Header Component
-const Header = (props) => {
-  return(
-    <header>
-      <h1>{props.title}</h1>
-      <span className="stats">Players: {props.totalPlayer}</span>
-    </header>
-  );
-}
-
-// This is the Player component
-const Player = (props) => {
-  return(
-    <div className="player">
-      <span className="player-name">
-        <button className="remove-player" onClick={() => props.removePlayer(props.id)}>x</button>
-        {props.name}
-      </span>
-      <Counter />
-    </div>
-  );
-}
-
-// This is the Counter component
-class Counter extends React.Component {
-  state = {
-    score: 0
-  };
-
-  incrementScore = () => {
-    this.setState( prevState => ({
-        score: prevState.score + 1
-    }));
-  }
-
-  decrementScore = () => {
-    this.setState( prevState => ({
-        score: prevState.score - 1
-    }));
-  }
-
-  render(){
-    return(
-      <div className="counter">
-        <button className="counter-action decrement" onClick={this.decrementScore}> - </button>
-        <span className="counter-score">{this.state.score}</span>
-        <button className="counter-action decrement" onClick={this.incrementScore}> + </button>
-      </div>
     );
   }
 }
